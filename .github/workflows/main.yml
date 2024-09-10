@@ -11,20 +11,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up Git identity
         run: |
           git config --global user.name "MateusAugustoo"
           git config --global user.email "mateusaugusto2017pp@gmail.com"
 
-      - name: Fetch and Merge from GitLab
+      - name: Fetch from GitLab and Merge
         run: |
           git remote add gitlab https://oauth2:${{ secrets.GITLAB_TOKEN }}@gitlab.com/MateusAugustoo/Stock.git
           git fetch gitlab
           git merge gitlab/main --allow-unrelated-histories || true
-          git ls-files -u | awk '{print $4}' | xargs git checkout --theirs
-          git add .
-          git commit -m "Resolved merge conflicts automatically"
         env:
           GITLAB_TOKEN: ${{ secrets.GITLAB_TOKEN }}
 
