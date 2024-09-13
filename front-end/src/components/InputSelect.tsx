@@ -1,18 +1,20 @@
-import { useForm } from 'react-hook-form'
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-type InputProps = {
+type InputProps<T extends FieldValues> = {
   label: string
+  name: Path<T>
   options: string[]
+  register: UseFormRegister<T>
 }
 
 
-export function InputSelect({ label, options }: InputProps) {
-  const { register } = useForm()
+export function InputSelect<T extends FieldValues>({ label, name, options, register }: InputProps<T>) {
   return (
     <div className='flex flex-col'>
-      <label className='text-sm font-medium'>{label}</label>
+      <label className='text-sm font-medium' htmlFor={name}>{label}</label>
       <select 
-        {...register(label)}
+        id={name}
+        {...register(name)}
         className='w-[10.563rem] h-[3.125rem] rounded-lg px-2 border border-black font-medium'
       >
         {options.map((option, index: number) => (
