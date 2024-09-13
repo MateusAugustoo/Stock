@@ -12,7 +12,8 @@ export function InputComponent({label, type}: InputProps) {
   return (
     <div>
       <label className='text-sm font-medium'>{label}</label>
-      <input 
+      <input
+        required
         type={type} 
         {...register(label)}
         className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg' 
