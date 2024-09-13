@@ -1,20 +1,19 @@
-import { useForm } from 'react-hook-form'
+import { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
-type InputProps = {
-  label: string
+type InputProps<T extends FieldValues> = {
+  label: Path<T>
   type: string
+  register: UseFormRegister<T>
   required?: boolean
 }
 
 
-export function InputComponent({label, type, required}: InputProps) {
-  const { register } = useForm()
-
+export function InputComponent<T extends FieldValues>({label,type, register, required}: InputProps<T>) {
   return (
     <div>
-      <label className='text-sm font-medium'>{label}</label>
+      <label className='text-sm font-medium' htmlFor={label}>{label}</label>
       <input
-        type={type} 
+        type={type}
         {...register(label, {required})}
         className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg' 
       />
