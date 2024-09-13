@@ -16,8 +16,8 @@ jobs:
 
       - name: Set up Git identity
         run: |
-          git config --global user.name "MateusAugustoo"
-          git config --global user.email "mateusaugusto2017pp@gmail.com"
+          git config --global user.name ${{ secrets.USERNAME }}
+          git config --global user.email ${{ secrets.EMAIL }}
 
       - name: Fetch from GitLab and Merge
         run: |
