@@ -13,6 +13,7 @@ export function InputComponent<T extends FieldValues>({label,type, register, req
     <div>
       <label className='text-sm font-medium' htmlFor={label}>{label}</label>
       <input
+        id={label}
         type={type}
         {...register(label, {required})}
         className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg' 
