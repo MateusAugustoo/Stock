@@ -16,4 +16,6 @@ model product {
   quantity       Int
   price          Float    @db.Float
   description    String
+
+  @@map("product")
 }
