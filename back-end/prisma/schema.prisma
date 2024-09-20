@@ -8,12 +8,12 @@ datasource db {
 }
 
 model product {
-  id             Int      @id @default(autoincrement())
+  id             String      @id @default(uuid())
   name           String   @db.VarChar(90)
   code           Int
   expirationDate DateTime
   category       String
-  quantity       Int?
+  quantity       Int
   price          Float    @db.Float
   description    String
 }
