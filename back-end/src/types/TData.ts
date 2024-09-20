@@ -3,6 +3,7 @@ export type TData = {
   code: number;
   expirationDate: Date;
   category: string;
+  quantity: number;
   price: number;
   description: string;
 }
