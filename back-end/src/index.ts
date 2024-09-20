@@ -1,6 +1,9 @@
 import fastify from "fastify";
+import { productRoutes } from "./routes/productRoutes";
 
-const app = fastify();
+const app = fastify({logger: true});
+
+app.register(productRoutes)
 
 const start = async () => {
   try {
