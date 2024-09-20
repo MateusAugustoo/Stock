@@ -1,21 +1,44 @@
-import { useForm } from "react-hook-form"
+import { SubmitHandler, useForm } from "react-hook-form"
 import { HeaderComponent } from "./components/Header"
 import { InputComponent } from "./components/InputC"
 import { InputSelect } from "./components/InputSelect"
 import { InputCalendar } from "./components/InputCalendar"
 import { InputTextarea } from "./components/InputTextarea"
-
+import { TFormData } from "./types/TFromData"
+import axios from "axios"
 function App() {
-  const { register } = useForm()
+  const { register, handleSubmit } = useForm<TFormData>()
+
+  const onSubmit: SubmitHandler<TFormData> = async (data) => {
+    const payload = {
+      ...data,
+      expirationDate: new Date(data.expirationDate).toISOString(),
+      code: Number(data.code),
+      quantity: Number(data.quantity),
+      price: Number(data.price),
+    }
+    try {
+      const response = await axios.post('http://localhost:3000/products', payload)
+
+      console.log(response)
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
   return (
     <>
       <div className="flex flex-col gap-10">
         <HeaderComponent />
 
         <main>
-          <form method="post" className="flex flex-col gap-1">
+          <form
+            className="flex flex-col gap-1"
+            onSubmit={handleSubmit(onSubmit)}
+          >
             <InputComponent
               label="Nome"
+              name="name"
               type="text"
               register={register}
               required
@@ -23,7 +46,8 @@ function App() {
 
             <InputComponent
               label="Código"
-              type="text"
+              name="code"
+              type="number"
               register={register}
               required
             />
@@ -31,7 +55,7 @@ function App() {
             <div className="flex justify-between">
               <InputCalendar
                 label="Data de validade"
-                name="validity"
+                name="expirationDate"
                 register={register}
               />
 
@@ -49,6 +73,7 @@ function App() {
 
             <InputComponent
               label="Quantidade"
+              name="quantity"
               type="number"
               register={register}
               required
@@ -56,12 +81,14 @@ function App() {
 
             <InputComponent
               label="preço"
+              name="price"
               type="number"
               register={register}
               required
+              step="0.01"
             />
 
-            <InputTextarea 
+            <InputTextarea
               label="Descrição"
               name="description"
               register={register}
