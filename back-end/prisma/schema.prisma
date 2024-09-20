@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model product {
+model Product {
   id             String      @id @default(uuid())
   name           String   @db.VarChar(90)
   code           Int
