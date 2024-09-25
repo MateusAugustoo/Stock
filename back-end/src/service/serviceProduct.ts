@@ -8,3 +8,7 @@ export const createProduct = async (data: TData) => {
 
   return await prisma.product.create({data})
 };
+
+export const getProducts = async () => {
+  return await prisma.product.findMany()
+}
