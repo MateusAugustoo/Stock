@@ -1,10 +1,10 @@
 import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import { createProduct } from "../service/serviceProduct";
+import { createProduct, getProducts } from "../service/serviceProduct";
 import { TData } from "../types/TData";
 
 export async function productRoutes(fastify: FastifyInstance) {
   fastify.post(
-    "/products",
+    "/register_products",
     async (request: FastifyRequest, reply: FastifyReply) => {
       try {
         const data = request.body as TData;
@@ -16,4 +16,11 @@ export async function productRoutes(fastify: FastifyInstance) {
       }
     }
   );
+
+  fastify.get('/get_products', async (request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const products = await getProducts()
+      reply.status(200).send(products)
+    } catch(error){}
+  })
 }
