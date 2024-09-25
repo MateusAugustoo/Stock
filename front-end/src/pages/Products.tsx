@@ -1,19 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
-
-type TProduct = {
-  name: string
-  code: number;
-  expirationDate: Date;
-  category: string;
-  quantity: number;
-  price: number;
-  description: string;
-}
+import { TFormData } from '../types/TFromData'
 
 export function Products() {
   const regexNumber = /^[0-9]*$/
-  const [products, setProducts] = useState<TProduct[]>([])
+  const [products, setProducts] = useState<TFormData[]>([])
   const [search, setSearch] = useState<string>('')
   const [isFiltered, setIsFiltered] = useState<boolean>(false)
 
@@ -46,7 +37,6 @@ export function Products() {
   })
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e.preventDefault()
     setSearch(e.target.value)
   }
 
