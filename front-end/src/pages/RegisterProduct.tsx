@@ -20,7 +20,7 @@ export function RegisterProduct() {
       price: Number(data.price),
     }
     try {
-      const response = await axios.post('http://localhost:3000/products', payload)
+      const response = await axios.post('http://localhost:3000/register_products', payload)
 
       console.log(response)
     } catch (error) {
