@@ -5,13 +5,17 @@ import { InputComponent } from "../components/inputs/InputC"
 import { InputCalendar } from "../components/inputs/InputCalendar"
 import { InputTextarea } from "../components/inputs/InputTextarea"
 import { InputSelect } from "../components/inputs/InputSelect"
+import { toast, ToastContainer } from 'react-toastify'
+import "react-toastify/dist/ReactToastify.css"
 
 import axios from "axios"
 
 export function RegisterProduct() {
-  const { register, handleSubmit } = useForm<TFormData>()
+  const { register, handleSubmit } = useForm<TFormData>() 
 
   const onSubmit: SubmitHandler<TFormData> = async (data) => {
+    const toastId = toast.loading('Cadastrando...')  
+
     const payload = {
       ...data,
       expirationDate: new Date(data.expirationDate).toISOString(),
@@ -22,8 +26,24 @@ export function RegisterProduct() {
     try {
       const response = await axios.post('http://localhost:3000/register_products', payload)
 
+      toast.update(toastId, {
+        render: 'Cadastrado com sucesso',
+        type: "success",
+        position: "top-right",
+        isLoading: false,
+        autoClose: 3000,
+        closeOnClick: true
+      })
       console.log(response)
     } catch (error) {
+      toast.update(toastId, {
+        render: 'Erro ao cadastrar',
+        type: "error",
+        position: "top-right",
+        isLoading: false,
+        autoClose: 3000,
+        closeOnClick: true
+      })
       console.error(error)
     }
   }
@@ -110,6 +130,8 @@ export function RegisterProduct() {
           </main>
         </div>
       </div>
+
+      <ToastContainer />
     </>
   )
 }
