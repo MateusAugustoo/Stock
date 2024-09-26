@@ -1,10 +1,10 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { TFormData } from "../types/TFromData"
 import { HeaderComponent } from "../components/Header"
-import { InputComponent } from "../components/InputC"
-import { InputCalendar } from "../components/InputCalendar"
-import { InputTextarea } from "../components/InputTextarea"
-import { InputSelect } from "../components/InputSelect"
+import { InputComponent } from "../components/inputs/InputC"
+import { InputCalendar } from "../components/inputs/InputCalendar"
+import { InputTextarea } from "../components/inputs/InputTextarea"
+import { InputSelect } from "../components/inputs/InputSelect"
 
 import axios from "axios"
 
