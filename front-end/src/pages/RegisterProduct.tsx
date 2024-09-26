@@ -30,83 +30,85 @@ export function RegisterProduct() {
 
   return (
     <>
-      <div className="flex flex-col gap-10">
-        <HeaderComponent />
+      <div className="bg-[#AAD576] h-screen w-screen px-4">
+        <div className="flex flex-col gap-10">
+          <HeaderComponent />
 
-        <main>
-          <form
-            className="flex flex-col gap-1"
-            onSubmit={handleSubmit(onSubmit)}
-          >
-            <InputComponent
-              label="Nome"
-              name="name"
-              type="text"
-              register={register}
-              required
-            />
-
-            <InputComponent
-              label="Código"
-              name="code"
-              type="number"
-              register={register}
-              required
-            />
-
-            <div className="flex justify-between">
-              <InputCalendar
-                label="Data de validade"
-                name="expirationDate"
+          <main>
+            <form
+              className="flex flex-col gap-1"
+              onSubmit={handleSubmit(onSubmit)}
+            >
+              <InputComponent
+                label="Nome"
+                name="name"
+                type="text"
                 register={register}
+                required
               />
 
-              <InputSelect
-                label="Categorias"
-                name="category"
-                options={[
-                  'Bebidas',
-                  'Carnes',
-                  'Frutas'
-                ]}
+              <InputComponent
+                label="Código"
+                name="code"
+                type="number"
                 register={register}
+                required
               />
-            </div>
 
-            <InputComponent
-              label="Quantidade"
-              name="quantity"
-              type="number"
-              register={register}
-              required
-            />
+              <div className="flex justify-between">
+                <InputCalendar
+                  label="Data de validade"
+                  name="expirationDate"
+                  register={register}
+                />
 
-            <InputComponent
-              label="preço"
-              name="price"
-              type="number"
-              register={register}
-              required
-              step="0.01"
-            />
+                <InputSelect
+                  label="Categorias"
+                  name="category"
+                  options={[
+                    'Bebidas',
+                    'Carnes',
+                    'Frutas'
+                  ]}
+                  register={register}
+                />
+              </div>
 
-            <InputTextarea
-              label="Descrição"
-              name="description"
-              register={register}
-              required
-            />
+              <InputComponent
+                label="Quantidade"
+                name="quantity"
+                type="number"
+                register={register}
+                required
+              />
 
-            <div className="flex justify-center mt-11">
-              <button
-                type="submit"
-                className="bg-[#2DEE1C] py-3 px-11 uppercase font-bold rounded-lg border border-black shadow"
-              >
-                cadastrar
-              </button>
-            </div>
-          </form>
-        </main>
+              <InputComponent
+                label="preço"
+                name="price"
+                type="number"
+                register={register}
+                required
+                step="0.01"
+              />
+
+              <InputTextarea
+                label="Descrição"
+                name="description"
+                register={register}
+                required
+              />
+
+              <div className="flex justify-center mt-11">
+                <button
+                  type="submit"
+                  className="bg-[#2DEE1C] py-3 px-11 uppercase font-bold rounded-lg border border-black shadow"
+                >
+                  cadastrar
+                </button>
+              </div>
+            </form>
+          </main>
+        </div>
       </div>
     </>
   )
