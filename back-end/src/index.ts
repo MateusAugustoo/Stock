@@ -1,12 +1,13 @@
 import fastify from "fastify";
 import { productRoutes } from "./routes/productRoutes";
 import cors from "@fastify/cors";
+import {authRoutes} from "./routes/authRoutes";
 
-const app = fastify({logger: true});
+const app = fastify({ logger: true });
 
 app.register(cors, {
   origin: (origin, cb) => {
-    if(!origin || origin.includes('localhost')){
+    if (!origin || origin.includes('localhost')) {
       cb(null, true)
       return
     }
@@ -15,6 +16,7 @@ app.register(cors, {
   methods: ['GET', 'POST', 'PUT', 'DELETE']
 })
 app.register(productRoutes)
+app.register(authRoutes)
 
 const start = async () => {
   try {
@@ -23,5 +25,5 @@ const start = async () => {
     app.log.error(err);
     process.exit(1);
   }
-};
+}
 start();
