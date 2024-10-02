@@ -1,25 +1,36 @@
-import { FastifyInstance } from "fastify";
+import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { loginUser, registerUser } from "../service/authService";
-import { FastifyJwtSignOptions } from '@fastify/jwt'
 
 export async function authRoutes(fastify: FastifyInstance) {
-   // const prisma = fastify.Prisma;
+  fastify.post(
+    "/register_user",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+      const data = request.body as TUser;
+      const result = await registerUser(data);
 
-    fastify.post('/register', async (request, reply) => {
-        const { name, email, password } = request.body as { name: string, email: string, password: string };
-        const result = await registerUser(name,email,password)
+      if ("status" in result! && result?.status && result?.message) {
         reply.status(result.status).send({ message: result.message });
-    });
+      } else {
+        reply.status(201).send({ message: "Usuário cadastrado com sucesso" });
+      }
+    }
+  );
 
-    fastify.post('/login', async (request, reply) => {
-        const { email, password } = request.body as { email: string, password: string };
-        const result = await loginUser(email, password, fastify.jwt.sign)
-        reply.status(result.status).send(result.token ? { token: result.token } : { message: result.message });
-    });
+  fastify.post(
+    "/login",
+    async (request: FastifyRequest, reply: FastifyReply) => {
+        const { email, password } = request.body as {
+            email: string,
+            password: string
+        }
 
-   /*fastify.get('/protected', { preValidation: [fastify.jwt] }, (request, reply) => {
-        reply.send({ message: 'Você acessou uma rota protegida' });
-    });*/
+        const result = await loginUser(email, password)
+
+        if("status" in result! && result?.status && result?.message){
+            reply.status(result.status).send({ message: result.message })
+        }else {
+            reply.status(200).send(result)
+        }
+    }
+  );
 }
-
-
