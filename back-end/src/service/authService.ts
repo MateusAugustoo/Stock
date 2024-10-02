@@ -1,36 +1,43 @@
-import bcrypt from 'bcrypt';
-import { PrismaClient } from '@prisma/client';
-import { JwtPayload, SignOptions, sign } from 'jsonwebtoken';
-import { prisma } from '../prisma';
+import { prisma } from "../prisma";
+import { checkPassword, hasPassword } from "./bcrypt/bcryptPassword";
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
+import { generateJWT } from "./jwt/generatorJWT";
 
-export async function registerUser(name: string, email: string, password: string): Promise<{ status: number, message: string }> {
-    const hashedPassword = await bcrypt.hash(password, 10);
+export async function registerUser(data: TUser) {
+  const hashedPassword = await hasPassword(data.password);
 
-    try {
-        const user = await prisma.user.create({
-            data: { name, email, password: hashedPassword },
-        });
-        return { status: 201, message: 'Usuário registrado com sucesso!' };
-    } catch (error) {
-        return { status: 400, message: 'Erro ao registrar o usuário!' };
+  try {
+    return await prisma.user.create({
+      data: {
+        name: data.name,
+        email: data.email,
+        nameEnterprise: data.nameEnterprise,
+        password: hashedPassword,
+      },
+    });
+  } catch (e) {
+    if (e instanceof PrismaClientKnownRequestError) {
+      if (e.code === "P2002") {
+        return { status: 400, message: "Email ja existe" };
+      }
     }
+  }
 }
 
-export async function loginUser(
-    email: string,
-    password: string,
-    jwtSign: (payload: JwtPayload, options?: SignOptions) => string
-): Promise<{ status: number, token?: string, message?: string }> {
-    const user = await prisma.user.findUnique({ where: { email } });
-    if (!user) {
-        return { status: 400, message: 'Usuário não encontrado' };
-    }
+export async function loginUser(email: string, password: string) {
+  const user = await prisma.user.findUnique({ where: { email } });
 
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-        return { status: 400, message: 'Senha incorreta' };
-    }
+  if (!user) return { status: 400, message: "Usuário não encontrado" };
 
-    const token = jwtSign({ userId: user.id }, { expiresIn: '1h' });
-    return { status: 200, token, message: 'Login bem-sucedido' };
+  const isMatch = await checkPassword(password, user.password);
+
+  if (!isMatch) return { status: 400, message: "Senha inválida" };
+
+  const payload = {
+    userId: user.id,
+    email: user.email
+  }
+
+  const token = await generateJWT(payload)
+  return { status: 200, token, message: 'Login realizado com sucesso' }
 }
