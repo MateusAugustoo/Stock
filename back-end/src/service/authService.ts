@@ -1,7 +1,7 @@
 import { prisma } from "../prisma";
-import { checkPassword, hasPassword } from "./bcrypt/bcryptPassword";
+import { checkPassword, hasPassword } from "../utils/bcrypt/bcryptPassword";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
-import { generateJWT } from "./jwt/generatorJWT";
+import { generateJWT } from "../utils/jwt/generatorJWT";
 
 export async function registerUser(data: TUser) {
   const hashedPassword = await hasPassword(data.password);
