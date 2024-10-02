@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
-import { TFormData } from '../types/TFromData'
+import { TFormProductData } from '../types/TFromProductData'
 import { ButtonBack } from "../components/ButtonBack";
 import { SlidersVerticalIcon } from "lucide-react";
 import { InputSearchProduct } from "../components/inputs/InputSearchProduct";
@@ -8,7 +8,7 @@ import { CardProduct } from "../components/CardProduct";
 
 export function Products() {
   const regexNumber = /^[0-9]*$/
-  const [products, setProducts] = useState<TFormData[]>([])
+  const [products, setProducts] = useState<TFormProductData[]>([])
   const [search, setSearch] = useState<string>('')
   const [isFiltered, setIsFiltered] = useState<boolean>(false)
 

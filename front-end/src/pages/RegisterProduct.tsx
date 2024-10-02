@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form"
-import { TFormData } from "../types/TFromData"
+import { TFormProductData } from "../types/TFromProductData"
 import { HeaderComponent } from "../components/Header"
 import { InputComponent } from "../components/inputs/InputC"
 import { InputCalendar } from "../components/inputs/InputCalendar"
@@ -11,10 +11,10 @@ import "react-toastify/dist/ReactToastify.css"
 import axios from "axios"
 
 export function RegisterProduct() {
-  const { register, handleSubmit } = useForm<TFormData>() 
+  const { register, handleSubmit } = useForm<TFormProductData>()
 
-  const onSubmit: SubmitHandler<TFormData> = async (data) => {
-    const toastId = toast.loading('Cadastrando...')  
+  const onSubmit: SubmitHandler<TFormProductData> = async (data) => {
+    const toastId = toast.loading('Cadastrando...')
 
     const payload = {
       ...data,
