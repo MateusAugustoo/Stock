@@ -1,10 +1,10 @@
 import axios from "axios";
 import { useState, useEffect } from "react"
 import { TFormProductData } from '../types/TFromProductData'
-import { ButtonBack } from "../components/ButtonBack";
 import { SlidersVerticalIcon } from "lucide-react";
 import { InputSearchProduct } from "../components/inputs/InputSearchProduct";
 import { CardProduct } from "../components/CardProduct";
+import { HeaderComponent } from "../components/Header";
 
 export function Products() {
   const regexNumber = /^[0-9]*$/
@@ -61,15 +61,9 @@ export function Products() {
     <>
       <div className="bg-white h-screen w-screen">
         <header className="bg-[#AAD576] px-4 pt-5 pb-14 flex flex-col gap-9 rounded-b-3xl shadow-slate-950 shadow-sm">
-          <div>
-            <div className="w-10 h-10">
-              <ButtonBack />
-            </div>
-            <h2 className=" text-2xl font-medium text-center">
-              Stock
-            </h2>
-          </div>
-
+          <HeaderComponent 
+            title="Produtos"
+          />
           <div className="grid grid-cols-6 gap-1">
             <InputSearchProduct
               search={search}
