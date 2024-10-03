@@ -1,6 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form"
 import { TFormProductData } from "../types/TFromProductData"
-import { HeaderComponent } from "../components/Header"
 import { InputComponent } from "../components/inputs/InputC"
 import { InputCalendar } from "../components/inputs/InputCalendar"
 import { InputTextarea } from "../components/inputs/InputTextarea"
@@ -9,6 +8,8 @@ import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 
 import axios from "axios"
+import { ButtonBack } from "../components/ButtonBack"
+import { CircleUserRound } from "lucide-react"
 
 export function RegisterProduct() {
   const { register, handleSubmit } = useForm<TFormProductData>()
@@ -52,7 +53,16 @@ export function RegisterProduct() {
     <>
       <div className="bg-[#AAD576] h-screen w-screen px-4">
         <div className="flex flex-col gap-10">
-          <HeaderComponent />
+          <div className="pt-7">
+            <div className="flex justify-between ">
+              <ButtonBack />
+              <CircleUserRound size={46} />
+            </div>
+
+            <div className="border border-black mt-7" />
+
+            <h1 className="text-2xl font-bold text-center mt-5">Cadastre sue Produto</h1>
+          </div>
 
           <main>
             <form
