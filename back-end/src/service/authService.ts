@@ -9,13 +9,19 @@ export async function registerUser(data: TUser) {
     where: {username: data.username}
   })
 
-  if (userByUsername) return { status: 400, message: "Username ja existe" };
+  if (userByUsername) return { status: 400, message: {
+    label: 'username',
+    message: 'username ja existe'
+  } };
 
   const userByEmail = await prisma.user.findUnique({
     where: {email: data.email}
   })
 
-  if (userByEmail) return { status: 400, message: "Email ja existe" };
+  if (userByEmail) return { label: 'email', status: 400, message: {
+    label: 'email',
+    message: 'email ja existe'
+  } };
 
   const hashedPassword = await hasPassword(data.password);
 
