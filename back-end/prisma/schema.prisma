@@ -23,7 +23,7 @@ model Product {
 model User {
   id             String  @id @default(uuid())
   name           String
-  username       String
+  username       String  @unique
   nameEnterprise String?
   email          String  @unique
   password       String
