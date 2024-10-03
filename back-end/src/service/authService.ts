@@ -4,6 +4,19 @@ import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { generateJWT } from "../utils/jwt/generatorJWT";
 
 export async function registerUser(data: TUser) {
+
+  const userByUsername = await prisma.user.findUnique({
+    where: {username: data.username}
+  })
+
+  if (userByUsername) return { status: 400, message: "Username ja existe" };
+
+  const userByEmail = await prisma.user.findUnique({
+    where: {email: data.email}
+  })
+
+  if (userByEmail) return { status: 400, message: "Email ja existe" };
+
   const hashedPassword = await hasPassword(data.password);
 
   try {
@@ -20,6 +33,9 @@ export async function registerUser(data: TUser) {
     if (e instanceof PrismaClientKnownRequestError) {
       if (e.code === "P2002") {
         return { status: 400, message: "Email ja existe" };
+      }
+      if (e.code ) {
+        
       }
     }
   }
