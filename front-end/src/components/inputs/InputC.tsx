@@ -7,13 +7,17 @@ type InputProps<T extends FieldValues> = {
   register: UseFormRegister<T>
   required?: boolean
   step?: string
+  colorText?: boolean
 }
 
 
-export function InputComponent<T extends FieldValues>({label, name, type, register, required, step}: InputProps<T>) {
+export function InputComponent<T extends FieldValues>({label, name, type, register, required, step, colorText}: InputProps<T>) {
+
+  const color = colorText ? '#228C22' : '#000'
+
   return (
     <div>
-      <label className='text-sm font-medium' htmlFor={name}>{label}</label>
+      <label className={`text-base font-bold text-[${color}]`} htmlFor={name}>{label}</label>
       <input
         id={name}
         type={type}
