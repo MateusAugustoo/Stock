@@ -14,7 +14,7 @@ type InputProps<T extends FieldValues> = {
 }
 
 
-export function InputComponent<T extends FieldValues>({label, name, type, register, required, step, colorText, validate}: InputProps<T>) {
+export function InputComponent<T extends FieldValues>({ label, name, type, register, required, step, colorText, validate }: InputProps<T>) {
 
   const color = colorText ? '#228C22' : '#000'
 
@@ -25,8 +25,8 @@ export function InputComponent<T extends FieldValues>({label, name, type, regist
         id={name}
         type={type}
         step={step}
-        {...register(name, {required, validate})}
-        className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg' 
+        {...register(name, { required: required ? 'Campo obrigatório' : false, validate: validate })}
+        className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg'
       />
     </div>
   )
