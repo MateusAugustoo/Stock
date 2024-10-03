@@ -1,5 +1,7 @@
 import { FieldValues, Path, UseFormRegister } from 'react-hook-form'
 
+type validate = (value: string) => boolean | string
+
 type InputProps<T extends FieldValues> = {
   label: string
   name: Path<T>
@@ -8,10 +10,11 @@ type InputProps<T extends FieldValues> = {
   required?: boolean
   step?: string
   colorText?: boolean
+  validate?: validate
 }
 
 
-export function InputComponent<T extends FieldValues>({label, name, type, register, required, step, colorText}: InputProps<T>) {
+export function InputComponent<T extends FieldValues>({label, name, type, register, required, step, colorText, validate}: InputProps<T>) {
 
   const color = colorText ? '#228C22' : '#000'
 
@@ -22,7 +25,7 @@ export function InputComponent<T extends FieldValues>({label, name, type, regist
         id={name}
         type={type}
         step={step}
-        {...register(name, {required})}
+        {...register(name, {required, validate})}
         className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg' 
       />
     </div>
