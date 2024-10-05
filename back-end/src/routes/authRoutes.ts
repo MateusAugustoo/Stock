@@ -19,12 +19,12 @@ export async function authRoutes(fastify: FastifyInstance) {
   fastify.post(
     "/login",
     async (request: FastifyRequest, reply: FastifyReply) => {
-        const { email, password } = request.body as {
-            email: string,
+        const { property, password } = request.body as {
+            property: string,
             password: string
         }
 
-        const result = await loginUser(email, password)
+        const result = await loginUser(property, password)
 
         if("status" in result! && result?.status && result?.message){
             reply.status(result.status).send({ message: result.message })
