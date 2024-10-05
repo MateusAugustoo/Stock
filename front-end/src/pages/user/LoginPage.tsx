@@ -56,7 +56,7 @@ export function LoginPage() {
           <fieldset className="flex flex-col gap-4">
             <div>
               <InputComponent
-                label="Usuário"
+                label="Username/Email"
                 name="property"
                 type="text"
                 required
