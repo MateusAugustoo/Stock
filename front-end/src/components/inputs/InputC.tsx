@@ -20,7 +20,13 @@ export function InputComponent<T extends FieldValues>({ label, name, type, regis
 
   return (
     <div>
-      <label className={`text-base font-bold text-[${color}]`} htmlFor={name}>{label}</label>
+      <label 
+        htmlFor={name}
+        style={{ color: color }}
+        className='text-base font-bold' 
+        >
+          {label}
+      </label>
       <input
         id={name}
         type={type}
