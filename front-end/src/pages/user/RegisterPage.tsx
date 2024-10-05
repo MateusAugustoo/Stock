@@ -5,6 +5,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from "axios";
+import { useNavigate } from "react-router-dom";
 
 type TFormUserDate = {
   name: string
@@ -21,19 +22,69 @@ export function RegisterUserPage() {
   const { register, handleSubmit, watch, setError, formState: { errors } } = useForm<TFormUserDate>()
 
   const password = watch('password')
+  const navigate = useNavigate()
+
+  const inputs: Array<{
+    label: string;
+    name: keyof TFormUserDate;
+    type: string;
+    required?: boolean;
+    description?: string;
+    validate?: (value: string) => boolean | string;
+  }> = [
+      {
+        label: 'Nome:',
+        name: 'name',
+        type: 'text',
+        required: true,
+      },
+      {
+        label: 'Username:',
+        name: 'username',
+        type: 'text',
+        required: true,
+      },
+      {
+        label: 'Nome da empresa/instituição:',
+        name: 'nameEnterprise',
+        type: 'text',
+        required: false,
+        description: 'Preencha caso seja uma instituição/empresa',
+      },
+      {
+        label: 'Email:',
+        name: 'email',
+        type: 'email',
+        required: true,
+      },
+      {
+        label: 'Senha:',
+        name: 'password',
+        type: 'password',
+        required: true,
+      },
+      {
+        label: 'Confirmar senha:',
+        name: 'confirmPassword',
+        type: 'password',
+        required: true,
+        validate: (value: string) => value === password || 'As senhas não conferem',
+      },
+  ];
+
 
   const onSubmit: SubmitHandler<TFormUserDate> = async (data) => {
     try {
       const response = await axios.post('http://localhost:3000/register_user', data)
-      console.log(response)
+
+      if (response.status === 201) {
+        navigate('/login')
+      }
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {
-        const errorMessageLabel = error.response?.data.message.label
-        const errorMessage = error.response?.data.message.message
-        if (errorMessageLabel === 'username') {
-          setError('username', { message: errorMessage })
-        } else if (errorMessageLabel === 'email') {
-          setError('email', { message: errorMessage })
+        const { label, message } = error.response?.data.message || {}
+        if (label && message) {
+          setError(label, { message })
         }
       }
     }
@@ -58,69 +109,25 @@ export function RegisterUserPage() {
           className="flex flex-col gap-1"
         >
 
-          <InputComponent
-            label="Nome:"
-            required
-            name="name"
-            type="text"
-            register={register}
-            colorText
-          />
-          {errors.name && <p className="text-red-500 italic font-bold text-xs">{errors.name.message}</p>}
-
-          <InputComponent
-            label="Username:"
-            required
-            name="username"
-            type="text"
-            register={register}
-            colorText
-          />
-          {errors.username && <p className="text-red-500 italic font-bold text-xs">{errors.username.message}</p>}
-
-          <div>
-            <InputComponent
-              label="Nome da empresa/instituição:"
-              name="nameEnterprise"
-              type="text"
-              register={register}
-              colorText
-            />
-            <p className="italic font-light ">
-              Preencha caso seja uma instituição/empresa
-            </p>
-          </div>
-
-          <InputComponent
-            label="Email:"
-            required
-            name="email"
-            type="email"
-            register={register}
-            colorText
-          />
-          {errors.email && <p className="text-red-500 italic font-bold text-xs">{errors.email.message}</p>}
-
-          <InputComponent
-            label="Senha:"
-            required
-            name="password"
-            type="password"
-            register={register}
-            colorText
-          />
-          {errors.password && <p className="text-red-500 italic font-bold text-xs">{errors.password.message}</p>}
-
-          <InputComponent
-            label="Confirmar senha:"
-            required
-            name="confirmPassword"
-            type="password"
-            register={register}
-            colorText
-            validate={(value) => value === password || 'As senhas não conferem'}
-          />
-          {errors.confirmPassword && <p className="text-red-500 italic font-bold text-xs">{errors.confirmPassword.message}</p>}
+          {inputs.map(({ label, name, type, required, validate, description }) => (
+            <div key={name}>
+              <InputComponent
+                label={label}
+                required={required}
+                name={name}
+                type={type}
+                register={register}
+                validate={validate}
+                colorText
+              />
+              {description && <p className="italic font-light ">{description}</p>}
+              {errors[name] && (
+                <p className="text-red-500 italic font-bold text-xs">
+                  {errors[name]?.message}
+                </p>
+              )}
+            </div>
+          ))}
 
           <div className="flex items-center gap-2">
             <input
