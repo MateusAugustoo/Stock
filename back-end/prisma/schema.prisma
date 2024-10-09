@@ -7,26 +7,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Product {
-  id             String   @id @default(uuid())
-  name           String   @db.VarChar(90)
-  code           Int
-  expirationDate DateTime
-  category       String
-  quantity       Int
-  price          Float    @db.Float
-  description    String
-
-  @@map("product")
-}
-
 model User {
-  id             String  @id @default(uuid())
-  name           String
-  username       String  @unique
-  nameEnterprise String?
-  email          String  @unique
-  password       String
+  id    String @id @default(cuid())
+  name  String
+  nameEnterprise  String?
+  username  String @unique
+  email String @unique
+  password  String
+  products  Product[]
 
   @@map("user")
+}
+
+model Product {
+  id    String @id @default(cuid())
+  name  String
+  code  Int
+  expirationDate  DateTime
+  category  String
+  quantity  Int
+  price  Float
+  description  String
+  user User @relation(fields: [userId], references: [id])
+  userId  String
+
+  @@map("product")
 }
