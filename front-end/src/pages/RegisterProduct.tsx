@@ -7,7 +7,7 @@ import { InputSelect } from "../components/inputs/InputSelect"
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
 
-import axios from "axios"
+import axios from '../utils/axiosConfig'
 import { ButtonBack } from "../components/ButtonBack"
 import { CircleUserRound } from "lucide-react"
 
