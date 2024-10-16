@@ -20,7 +20,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '/register_product',
-        element: <RegisterProduct />
+        element: <ProtectedRoute element={<RegisterProduct />} />
       },
     ]
   }
