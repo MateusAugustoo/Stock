@@ -24,7 +24,7 @@ export function LoginPage() {
 
       if (response.data.status === 200 && response.data.data.token) {
         localStorage.setItem('authToken', response.data.data.token)
-        navigate('/products')
+        navigate('/')
       }
     } catch (error: unknown | AxiosError) {
       if (axios.isAxiosError(error)) {

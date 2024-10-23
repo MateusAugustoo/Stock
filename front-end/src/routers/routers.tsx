@@ -15,11 +15,13 @@ export const router = createBrowserRouter([
     element: <RegisterUserPage /> 
   },
   {
-    path: 'register_product',
-    element: <ProtectedRoute element={<RegisterProduct />} />
-  },
-  {
-    path: 'products',
-    element: <ProtectedRoute element={<Products />} />
+    path: '/',
+    element: <ProtectedRoute element={<Products />} />,
+    children: [
+      {
+        path: '/register_product',
+        element: <ProtectedRoute element={<RegisterProduct />} />
+      },
+    ]
   }
 ])
