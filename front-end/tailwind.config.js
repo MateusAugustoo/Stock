@@ -8,6 +8,9 @@ export default {
     extend: {
       fontFamily: {
         'roboto': ['Roboto', 'sans-serif']
+      },
+      width: {
+        "bottomBar": 'calc(100% - 2rem)',
       }
     },
   },
