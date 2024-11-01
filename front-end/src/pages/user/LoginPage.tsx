@@ -51,9 +51,9 @@ export function LoginPage() {
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-14 bg-white px-14 pt-10 pb-16 rounded-lg shadow-xl shadow-black/30"
+          className="flex flex-col gap-14"
         >
-          <fieldset className="flex flex-col gap-4">
+          <fieldset className="flex flex-col gap-4 bg-white px-14 pt-10 pb-16 rounded-lg shadow-xl shadow-black/30">
             <div>
               <InputComponent
                 label="Username/Email"
@@ -80,15 +80,15 @@ export function LoginPage() {
 
             <a href="#" className="text-base font-light text-[#228C22]">Forgot Password? Need help sign in</a>
           </fieldset>
-        </form>
 
-        <div>
           <div className="rounded-2xl overflow-hidden">
             <ButtonPrimary
               title="Acessar"
             />
           </div>
+        </form>
 
+        <div>
           <p className="text-center mt-4">
             Crie uma conta <Link to="/register" className="text-blue-700 font-bold">aqui</Link>
           </p>
