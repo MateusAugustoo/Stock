@@ -4,6 +4,8 @@ import { RegisterUserPage } from "../pages/user/RegisterPage";
 import { LoginPage } from "../pages/user/LoginPage";
 import { ProtectedRoute } from "../components/ProtectedRoute";
 import { Layout } from "../pages/Layout";
+import { ProductManagement } from "../pages/products/ProductManagement";
+import { RegisterProduct } from "../pages/products/RegisterProduct";
 
 export const router = createBrowserRouter([
   {
@@ -12,7 +14,7 @@ export const router = createBrowserRouter([
   },
   {
     path: '/register',
-    element: <RegisterUserPage /> 
+    element: <RegisterUserPage />
   },
   {
     path: '/',
@@ -32,8 +34,12 @@ export const router = createBrowserRouter([
       },
       {
         path: '/productManagement',
-        element: <></>
-      }
+        element: <ProductManagement />,
+      },
     ]
+  },
+  {
+    path: '/productManagement/register-product',
+    element: <ProtectedRoute element={<RegisterProduct />}/>
   }
 ])
