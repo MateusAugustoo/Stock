@@ -1,4 +1,4 @@
-import { SearchIcon } from "lucide-react";
+import { SearchIcon, SlidersVertical } from "lucide-react";
 
 type InputProps = {
   search: string
@@ -7,11 +7,10 @@ type InputProps = {
 
 export function InputSearchProduct({ search, handleSearch }: InputProps) {
   return (
-    <div className="relative col-span-5">
+    <div className="relative col-span-6">
       <div className="absolute inset-y-0 left-0 flex items-center pl-3">
         <SearchIcon
           size={24}
-          className="text-[#79747e]"
         />
       </div>
       <input
@@ -19,8 +18,13 @@ export function InputSearchProduct({ search, handleSearch }: InputProps) {
         value={search}
         onChange={handleSearch}
         placeholder="Pesquisar produto"
-        className="block w-full py-3 ps-10 rounded-md border border-black bg-[#d4d4d4]/[60%] placeholder:text-center"
+        className="block w-full py-3 ps-10 rounded-md bg-zinc-200 placeholder:text-center shadow-md shadow-black/30"
       />
+      <div className="absolute inset-y-0 right-0 flex items-center pr-3">
+        <SlidersVertical 
+          size={24}
+        />
+      </div>
     </div>
   )
 }
