@@ -1,5 +1,5 @@
 import { SubmitHandler, useForm } from "react-hook-form"
-import { TFormProductData } from "../types/TFromProductData"
+import { TProductData } from "../types/TProductData"
 import { InputComponent } from "../components/inputs/InputC"
 import { InputCalendar } from "../components/inputs/InputCalendar"
 import { InputTextarea } from "../components/inputs/InputTextarea"
@@ -12,9 +12,9 @@ import { ButtonBack } from "../components/ButtonBack"
 import { CircleUserRound } from "lucide-react"
 
 export function RegisterProduct() {
-  const { register, handleSubmit } = useForm<TFormProductData>()
+  const { register, handleSubmit } = useForm<TProductData>()
 
-  const onSubmit: SubmitHandler<TFormProductData> = async (data) => {
+  const onSubmit: SubmitHandler<TProductData> = async (data) => {
     const toastId = toast.loading('Cadastrando...')
 
     const payload = {
