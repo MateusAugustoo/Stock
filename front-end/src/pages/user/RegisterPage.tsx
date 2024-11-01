@@ -1,4 +1,3 @@
-import { HeaderComponent } from "../../components/Header";
 import svgRegister from '../../assets/svg-register.svg';
 import { InputComponent } from "../../components/inputs/InputC";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -94,10 +93,6 @@ export function RegisterUserPage() {
       <div
         className="bg-[#AAD576] min-h-screen px-4"
       >
-        <HeaderComponent
-          title="Cadastro"
-        />
-
         <img
           src={svgRegister}
           alt=""
