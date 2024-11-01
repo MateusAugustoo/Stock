@@ -15,7 +15,7 @@ export function InputSelect<T extends FieldValues>({ label, name, options, regis
       <select 
         id={name}
         {...register(name)}
-        className='w-[10.563rem] h-[3.125rem] rounded-lg px-2 border border-black font-medium'
+        className='w-[10.563rem] h-[3.125rem] rounded-lg px-2 border border-black font-medium bg-gray-300'
       >
         {options.map((option, index: number) => (
           <option 
