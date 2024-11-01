@@ -1,19 +1,21 @@
-import { ChevronLeftIcon } from "lucide-react";
+import { SquareArrowLeft} from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 
 type Props = {
   title: string
 }
 
-export function HeaderComponent({title}: Props) {
+export const Header = ({ title }: Props) => {
+
+  const navigate = useNavigate() 
+
   return (
-    <header className="flex justify-between items-center pt-7">
-      <div className="bg-white border border-black size-10 rounded-lg flex items-center justify-center">
-        <ChevronLeftIcon />
+    <>
+      <div className='flex items-center justify-between border-b-2 border-black py-5'>
+        <SquareArrowLeft size={32} onClick={() => navigate(-1)}/>
+        <h1 className="font-bold text-2xl">{title}</h1>
+        <div></div>
       </div>
-      <h2 className="text-2xl font-bold">
-        {title}
-      </h2>
-      <div></div>
-    </header>
+    </>
   )
 }
