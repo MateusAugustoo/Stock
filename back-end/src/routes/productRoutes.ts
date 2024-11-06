@@ -1,8 +1,10 @@
-import { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
+import fastify, { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import { createProduct, getProducts,updateProduct,deleteProduct} from "../service/serviceProduct";
 import { TData } from "../types/TData";
 import { verifyJWT } from "../utils/jwt/verifyJWT";
 import { JwtPayload } from "jsonwebtoken";
+
+
 
 export async function productRoutes(fastify: FastifyInstance) {
   fastify.post(
@@ -37,7 +39,7 @@ export async function productRoutes(fastify: FastifyInstance) {
       } catch (error) {}
     }
   );
-}
+
 //Rota para atualizar produto por ID
   fastify.put('/update_product/:id', async (request: FastifyRequest, reply: FastifyReply) => {
     try {
@@ -62,3 +64,8 @@ export async function productRoutes(fastify: FastifyInstance) {
       reply.status(500).send("Erro Interno do Servidor");
     }
   });
+
+}
+
+  
+  
