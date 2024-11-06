@@ -11,6 +11,7 @@ model User {
   id    String @id @default(cuid())
   name  String
   nameEnterprise  String?
+  photo  String?
   username  String @unique
   email String @unique
   password  String

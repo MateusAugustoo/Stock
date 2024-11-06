@@ -19,7 +19,7 @@ export function InputTextarea<T extends FieldValues>({label, name, register, req
       <textarea 
         id={name} 
         {...register(name, {required})} 
-        className="border border-black rounded-lg h-28 px-2 py-1"
+        className="border border-black rounded-lg h-28 px-2 py-1 bg-gray-300"
       />
     </div>
   )

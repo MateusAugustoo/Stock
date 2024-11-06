@@ -1,4 +1,4 @@
-export type TFormProductData = {
+export type TProductData = {
   name: string
   code: number;
   expirationDate: Date;
@@ -6,4 +6,5 @@ export type TFormProductData = {
   quantity: number;
   price: number;
   description: string;
+  image?: string
 }

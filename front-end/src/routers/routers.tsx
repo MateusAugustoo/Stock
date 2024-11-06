@@ -1,9 +1,11 @@
-import { createBrowserRouter } from "react-router-dom";
-import { RegisterProduct } from "../pages/RegisterProduct";
-import { Products } from "../pages/Products";
+import { createBrowserRouter, Navigate } from "react-router-dom";
+import { HomePage } from "../pages/HomePage";
 import { RegisterUserPage } from "../pages/user/RegisterPage";
 import { LoginPage } from "../pages/user/LoginPage";
 import { ProtectedRoute } from "../components/ProtectedRoute";
+import { Layout } from "../pages/Layout";
+import { ProductManagement } from "../pages/products/ProductManagement";
+import { RegisterProduct } from "../pages/products/RegisterProduct";
 
 export const router = createBrowserRouter([
   {
@@ -12,16 +14,32 @@ export const router = createBrowserRouter([
   },
   {
     path: '/register',
-    element: <RegisterUserPage /> 
+    element: <RegisterUserPage />
   },
   {
     path: '/',
-    element: <ProtectedRoute element={<Products />} />,
+    element: <ProtectedRoute element={<Layout />} />,
     children: [
       {
-        path: '/register_product',
-        element: <ProtectedRoute element={<RegisterProduct />} />
+        path: '/',
+        element: <Navigate to={'/home'} />
+      },
+      {
+        path: '/home',
+        element: <HomePage />
+      },
+      {
+        path: '/finance',
+        element: <></>
+      },
+      {
+        path: '/productManagement',
+        element: <ProductManagement />,
       },
     ]
+  },
+  {
+    path: '/productManagement/register-product',
+    element: <ProtectedRoute element={<RegisterProduct />}/>
   }
 ])

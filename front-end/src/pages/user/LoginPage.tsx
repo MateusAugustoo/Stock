@@ -3,7 +3,7 @@ import { InputComponent } from "../../components/inputs/InputC";
 import { ButtonPrimary } from "../../components/ButtonPrimary";
 import { Link } from "react-router-dom";
 
-import imgLogin from '../../assets/img-login.png'
+import logoIfpi from '../../assets/Logo-IFPI-Horizontal.png'
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios, { AxiosError } from "axios";
 import { useNavigate } from "react-router-dom";
@@ -37,23 +37,23 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#AAD576] px-4">
+    <div className="flex h-screen flex-col items-center bg-[#AAD576] px-4">
       <header>
-        <h2 className="font-extrabold text-3xl text-center py-12">Login</h2>
-      </header>
-
-      <main>
         <img
-          src={imgLogin}
-          className="mx-auto"
+          src={logoIfpi}
+          className="mx-auto mt-4"
           alt="um boneco ilustraso atravessando um porta"
         />
+      </header>
+
+      <main className="flex flex-col gap-16 mt-11">
+        <h1 className="text-2xl font-extrabold text-center capitalize">sistema de gestão <br /> de alimentos</h1>
 
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-col gap-14 mt-10"
+          className="flex flex-col gap-14"
         >
-          <fieldset className="flex flex-col gap-4">
+          <fieldset className="flex flex-col gap-4 bg-white px-14 pt-10 pb-16 rounded-lg shadow-xl shadow-black/30">
             <div>
               <InputComponent
                 label="Username/Email"
@@ -77,20 +77,22 @@ export function LoginPage() {
               />
               {errors.password && <p className="text-red-500 italic font-bold text-xs">{errors.password.message}</p>}
             </div>
+
+            <a href="#" className="text-base font-light text-[#228C22]">Forgot Password? Need help sign in</a>
           </fieldset>
 
-          <div className="flex justify-center">
-            <div className="w-60 rounded-lg overflow-hidden">
-              <ButtonPrimary
-                title="Entrar"
-              />
-            </div>
+          <div className="rounded-2xl overflow-hidden">
+            <ButtonPrimary
+              title="Acessar"
+            />
           </div>
         </form>
 
-        <p className="text-center mt-4">
-          Crie uma conta <Link to="/register" className="text-blue-700 font-bold">aqui</Link>
-        </p>
+        <div>
+          <p className="text-center mt-4">
+            Crie uma conta <Link to="/register" className="text-blue-700 font-bold">aqui</Link>
+          </p>
+        </div>
       </main>
     </div>
   )

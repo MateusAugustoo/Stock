@@ -19,7 +19,7 @@ export function InputComponent<T extends FieldValues>({ label, name, type, regis
   const color = colorText ? '#228C22' : '#000'
 
   return (
-    <div>
+    <div className='flex flex-col gap-3'>
       <label 
         htmlFor={name}
         style={{ color: color }}
@@ -32,7 +32,7 @@ export function InputComponent<T extends FieldValues>({ label, name, type, regis
         type={type}
         step={step}
         {...register(name, { required: required ? 'Campo obrigatório' : false, validate: validate })}
-        className='bg-white w-full h-[3.125rem] pl-2 border border-black rounded-lg'
+        className='bg-gray-300 w-full h-[3.125rem] pl-2 border border-black rounded-lg'
       />
     </div>
   )

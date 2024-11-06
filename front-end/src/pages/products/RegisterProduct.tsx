@@ -1,20 +1,20 @@
 import { SubmitHandler, useForm } from "react-hook-form"
-import { TFormProductData } from "../types/TFromProductData"
-import { InputComponent } from "../components/inputs/InputC"
-import { InputCalendar } from "../components/inputs/InputCalendar"
-import { InputTextarea } from "../components/inputs/InputTextarea"
-import { InputSelect } from "../components/inputs/InputSelect"
+import { TProductData } from "../../types/TProductData"
+import { InputComponent } from "../../components/inputs/InputC"
+import { InputCalendar } from "../../components/inputs/InputCalendar"
+import { InputTextarea } from "../../components/inputs/InputTextarea"
+import { InputSelect } from "../../components/inputs/InputSelect"
 import { toast, ToastContainer } from 'react-toastify'
 import "react-toastify/dist/ReactToastify.css"
+import { ScanBarcode } from 'lucide-react'
 
-import axios from '../utils/axiosConfig'
-import { ButtonBack } from "../components/ButtonBack"
-import { CircleUserRound } from "lucide-react"
+import axios from '../../utils/axiosConfig'
+import { Header } from "../../components/Header"
 
 export function RegisterProduct() {
-  const { register, handleSubmit } = useForm<TFormProductData>()
+  const { register, handleSubmit } = useForm<TProductData>()
 
-  const onSubmit: SubmitHandler<TFormProductData> = async (data) => {
+  const onSubmit: SubmitHandler<TProductData> = async (data) => {
     const toastId = toast.loading('Cadastrando...')
 
     const payload = {
@@ -51,18 +51,13 @@ export function RegisterProduct() {
 
   return (
     <>
-      <div className="bg-[#AAD576] h-screen w-screen px-4">
+      <div className="bg-lime-50 h-screen w-screen px-4">
         <div className="flex flex-col gap-10">
-          <div className="pt-7">
-            <div className="flex justify-between ">
-              <ButtonBack />
-              <CircleUserRound size={46} />
-            </div>
-
-            <div className="border border-black mt-7" />
-
-            <h1 className="text-2xl font-bold text-center mt-5">Cadastre sue Produto</h1>
-          </div>
+          <header className="pt-7">
+            <Header 
+              title="Cadastro de produtos"
+            />
+          </header>
 
           <main>
             <form
@@ -128,12 +123,19 @@ export function RegisterProduct() {
                 required
               />
 
-              <div className="flex justify-center mt-11">
+              <div className="flex mt-11">
                 <button
                   type="submit"
-                  className="bg-[#2DEE1C] py-3 px-11 uppercase font-bold rounded-lg border border-black shadow"
+                  className="bg-lime-400 py-3 px-11 uppercase font-bold rounded-lg border border-black shadow"
                 >
                   cadastrar
+                </button>
+
+                <button
+                  type="button"
+                  className="bg-lime-400 w-full flex justify-center py-3 px-11 ml-5 uppercase font-bold rounded-lg border border-black shadow"
+                >
+                  <ScanBarcode size={32} />
                 </button>
               </div>
             </form>
